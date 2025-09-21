@@ -2,6 +2,7 @@
 
 import styles from "./App.module.css";
 import clsx from "clsx";
+import BoardCard from "./components/BoardCard/BoardCard.tsx";
 
 export default function App(){
   return(
@@ -14,54 +15,17 @@ export default function App(){
         </div>
 
         <ul className={styles.boards}>
-          <li>
-          <div className={clsx(styles.board, "blue")}>
-            <div className={styles.cover}></div>
-            <div className={styles.content}>
-            <div className={styles.header}>
-              <div className={styles.title}>Board1</div>
-              <a href='/board'>View</a>
-            </div>
-            <p className={styles.description}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus ducimus libero accusantium nemo laudantium, quasi obcaecati provident nam vero cumque, sequi rem, id similique. Assumenda maiores nisi ipsam iure illo.
-            </p>
-          </div>
-          </div>   
-          </li>
+            <li>
+                <BoardCard id={1} title="Spring Tasks" description="lorem spammmmmmmmmmmmmmmmmmmmm jjjjjjjjfklsfnhhnkiuasdi" color="blue" />
+            </li>
 
-          <li>
-            <div className={clsx(styles.board, "gray")}>
-                   <div className={styles.cover}></div>
-          <div className={styles.content}>
-            <div className={styles.header}>
-              <div className={styles.title}>Board1</div>
-              <a href='/board'>View</a>
-            </div>
-            <p className={styles.description}>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus ducimus libero accusantium nemo laudantium, quasi obcaecati provident nam vero cumque, sequi rem, id similique. Assumenda maiores nisi ipsam iure illo.
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas sit animi ipsa, veritatis unde suscipit dolores fugit sed eligendi voluptate totam. Aliquid optio fuga enim necessitatibus, rerum aperiam delectus inventore!
-            </p>
-          </div>
-          
-            </div>
-          </li>
+            <li>
+                <BoardCard id={2} title="Content Calendar" description="adwd skfjolijfr sejhinwieh  wirhwiu uuhi n wjrhdwiuh hdffiush iejopqwje " color="gray" />
+            </li>
 
-          <li>
-            <div className={clsx(styles.board, "yellow")}>
-              <div className={styles.cover}></div>
-              <div className={styles.content}>
-                <div className={styles.header}>
-                <div className={styles.title}>Board1</div>
-                <a href='/board'>View</a>
-              </div>
-              <p className={styles.description}>
-                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloribus ducimus libero accusantium nemo laudantium, quasi obcaecati provident nam vero cumque, sequi rem, id similique. Assumenda maiores nisi ipsam iure illo.
-                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quas sit animi ipsa, veritatis unde suscipit dolores fugit sed eligendi voluptate totam. Aliquid optio fuga enim necessitatibus, rerum aperiam delectus inventore!
-              </p>
-            </div>
-            
-            </div>
-          </li>
+            <li>
+                <BoardCard id={3} title="Personal Goals" description="ewrfwsfgb dfgdrhgr regr hjgghrf drfed sfer dr berfe" color="yellow" />
+            </li>
 
         </ul>
 
