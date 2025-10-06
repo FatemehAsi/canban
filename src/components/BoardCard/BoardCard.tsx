@@ -3,6 +3,7 @@ import type {ReactNode} from "react";
 import styles from "./BoardCard.module.css";
 
 import clsx from "clsx";
+import { Link } from "react-router";
 
 type BoardCard = "gray" | "blue" | "green" | "yellow" | "orange" | "red";
 
@@ -20,11 +21,11 @@ export default function BoardCard({title, description, color}: Props): ReactNode
             <div className={styles.content}>
             <div className={styles.header}>
               <div className={styles.title}>{title}</div>
-              <a href='/board'>View</a>
+              <Link to='/board'>View</Link>
             </div>
             <p className={styles.description}>
             {description}
-            </p>
+            </p> 
           </div>
     </div>
     );
