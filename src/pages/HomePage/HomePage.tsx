@@ -2,15 +2,11 @@ import type { ReactNode } from "react";
 
 import styles from "./HomePage.module.css";
 
-import BoardCard from  "../../components/BoardCard/BoardCard.tsx";
-import Button from "../../components/Button/Button.tsx";
-import Header from "../../components/Header/Header.tsx";
-import Footer from "../../components/Footer/Footer.tsx";
+import BoardCard from  "../../components/BoardCard/BoardCard";
+import Button from "../../components/Button/Button";
 
 export default function HomePage(): ReactNode{
     return <div className={styles["home-page"]}>
-          <Header />
-      <main>
         <div className={styles.header}>
           <h1 className={styles.title}>Boards</h1>
           <Button color="primary">Create</Button>
@@ -30,9 +26,5 @@ export default function HomePage(): ReactNode{
             </li>
 
         </ul>
-
-      </main>
-
-      <Footer />
     </div>
 }

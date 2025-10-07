@@ -2,15 +2,18 @@
 import { Routes, Route } from "react-router";
 
 import HomePage from "./pages/HomePage/HomePage";
-import BoardPage from "./pages/HomePage/BoardPage/BoardPage";
+import BoardPage from "./pages/BoardPage/BoardPage";
+import RootLayout from "./layouts/RootLayout/RootLayout";
 
 export default function App(){
   return(
     
       <Routes>
-        <Route index element={<HomePage />}/>
-        {/*index همان path="/" است بهتر است از index استفاده کنیم  */}
-        <Route path="board" element={<BoardPage />} />
+        <Route element={<RootLayout />}>
+          <Route index element={<HomePage />}/>
+          {/*index همان path="/" است بهتر است از index استفاده کنیم  */}
+          <Route path="board" element={<BoardPage />} />
+        </Route>
       </Routes>
     
    
