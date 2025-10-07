@@ -4,10 +4,11 @@ import styles from "./HomePage.module.css";
 
 import BoardCard from  "../../components/BoardCard/BoardCard.tsx";
 import Button from "../../components/Button/Button.tsx";
+import Header from "../../components/Header/Header.tsx"
 
 export default function HomePage(): ReactNode{
     return <div className={styles["home-page"]}>
-          <header>Header</header>
+          <Header />
       <main>
         <div className={styles.header}>
           <h1 className={styles.title}>Boards</h1>
