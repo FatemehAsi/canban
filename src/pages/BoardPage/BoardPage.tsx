@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 export default function BoardPage(): ReactNode{
     const {id} = useParams();
     return(
-        <div className={styles["board-page"]}>Board Page {id}</div>
+        <div className={styles["board-page"]}>Board {id}</div>
 
     );
 }
