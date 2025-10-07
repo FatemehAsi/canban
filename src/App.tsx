@@ -12,7 +12,7 @@ export default function App(){
         <Route element={<RootLayout />}>
           <Route index element={<HomePage />}/>
           {/*index همان path="/" است بهتر است از index استفاده کنیم  */}
-          <Route path="board" element={<BoardPage />} />
+          <Route path="board/:id" element={<BoardPage />} />
         </Route>
       </Routes>
     
