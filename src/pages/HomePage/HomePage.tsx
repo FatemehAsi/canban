@@ -4,7 +4,8 @@ import styles from "./HomePage.module.css";
 
 import BoardCard from  "../../components/BoardCard/BoardCard.tsx";
 import Button from "../../components/Button/Button.tsx";
-import Header from "../../components/Header/Header.tsx"
+import Header from "../../components/Header/Header.tsx";
+import Footer from "../../components/Footer/Footer.tsx";
 
 export default function HomePage(): ReactNode{
     return <div className={styles["home-page"]}>
@@ -32,8 +33,6 @@ export default function HomePage(): ReactNode{
 
       </main>
 
-      <footer>
-        
-      </footer>
+      <Footer />
     </div>
 }
