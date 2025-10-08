@@ -7,6 +7,5 @@ export default function BoardPage(): ReactNode{
     const {id} = useParams();
     return(
         <div className={styles["board-page"]}>Board {id}</div>
-
     );
 }

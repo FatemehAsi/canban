@@ -6,6 +6,8 @@ import BoardCard from  "../../components/BoardCard/BoardCard";
 import Button from "../../components/Button/Button";
 
 export default function HomePage(): ReactNode{
+    // throw new Error(); 
+    
     return <div className={styles["home-page"]}>
         <div className={styles.header}>
           <h1 className={styles.title}>Boards</h1>
