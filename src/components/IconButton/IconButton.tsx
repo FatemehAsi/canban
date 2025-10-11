@@ -1,9 +1,18 @@
-import { ReactNode } from "react";
+import { ComponentProps, ReactNode } from "react";
+import clsx from "clsx";
 
 import styles from "./IconButton.module.css";
 
-export default function IconButton():ReactNode{
-    return(
-        
-    )
+type Props = ComponentProps<"button">
+
+export default function IconButton({
+    className,
+    children,
+    ...otherProps
+}: Props): ReactNode{
+    return (
+        <button className={clsx(styles['icon-button'], className)} {...otherProps}>
+          {children}
+        </button>
+    );
 }
