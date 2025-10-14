@@ -16,6 +16,6 @@ const ListItem = memo( function ListItem({item}: Props): ReactNode{
             {item.title}
         </div>
     );
-})
+});
 
 export default ListItem;

@@ -1,4 +1,4 @@
-import type {ReactNode} from "react";
+import {ReactNode, memo} from "react";
 
 import styles from "./List.module.css";
 import type { ListType } from "../../types/list";
@@ -13,7 +13,7 @@ type Props = {
     list: ListType
 }
 
-export default function List({list} : Props): ReactNode{
+const List = memo(function List({list} : Props): ReactNode{
     return (
     <div className={styles.list}>
         <div className={styles.header}>
@@ -34,4 +34,6 @@ export default function List({list} : Props): ReactNode{
                 }
             </ul>
     </div>);
-}
+})
+
+export default List;
