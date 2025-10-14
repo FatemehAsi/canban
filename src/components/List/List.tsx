@@ -14,7 +14,8 @@ type Props = {
 }
 
 export default function List({list} : Props): ReactNode{
-    return <div className={styles.list}>
+    return (
+    <div className={styles.list}>
         <div className={styles.header}>
 
             <div className={styles.title}>{list.title}</div>
@@ -32,5 +33,5 @@ export default function List({list} : Props): ReactNode{
                 ))
                 }
             </ul>
-    </div>
+    </div>);
 }
