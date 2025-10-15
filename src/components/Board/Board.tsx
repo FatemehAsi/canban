@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useMemo, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -8,6 +8,11 @@ import MingcuteMore1Line from "../../icons/MingcuteMore1Line";
 import type { ListType } from "../../types/list";
 
 import List from "../List/List";
+import type { ListItemType } from "../../types/list-item";
+
+function cb(a: ListItemType, b: ListItemType){
+    return a.title.localeCompare(b.title);
+}
 
 export default function Board(): ReactNode{
     const [todoList, setTodoList] = useState<ListType>({
@@ -42,8 +47,19 @@ export default function Board(): ReactNode{
             return {...old, items: clone}
         })
 
-    }
+    };
 
+    const sortedTodoList = useMemo(() => {
+        return {...todoList, items: [...todoList.items].sort(cb)}
+    }, [todoList]);
+
+    const sortedDoingList = useMemo(() => {
+        return {...doingList, items: [...doingList.items].sort(cb)}
+    }, [doingList]);
+
+    const sortedDoneList = useMemo(() => {
+        return {...doneList, items: [...doneList.items].sort(cb)}
+    }, [doneList]);
 
     return(
         <div className={styles.board}>
@@ -65,15 +81,15 @@ export default function Board(): ReactNode{
 
                 <ul className={styles.lists}>
                     <li>
-                        <List list={todoList} />
+                        <List list={sortedTodoList} />
                     </li>
 
                     <li>
-                        <List list={doingList} />
+                        <List list={sortedDoingList} />
                     </li>
 
                     <li>
-                        <List list={doneList} />
+                        <List list={sortedDoneList} />
                     </li>
                 </ul>
             </div>
