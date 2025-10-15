@@ -10,10 +10,11 @@ import MingcuteMore1Line from "../../icons/MingcuteMore1Line";
 import ListItem from "../ListItem/ListItem";
 
 type Props = {
-    list: ListType
+    list: ListType;
+    onClick?: (id: string) => void;
 }
 
-const List = memo(function List({list} : Props): ReactNode{
+const List = memo(function List({list, onClick} : Props): ReactNode{
     return (
     <div className={styles.list}>
         <div className={styles.header}>
@@ -28,7 +29,7 @@ const List = memo(function List({list} : Props): ReactNode{
                 {
                     list.items.map((item) => (
                     <li key={item.id}>
-                        <ListItem item={item} />
+                        <ListItem item={item} onClick={onClick} />
                     </li>
                 ))
                 }

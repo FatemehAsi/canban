@@ -1,4 +1,4 @@
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useCallback, useMemo, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -10,9 +10,6 @@ import type { ListType } from "../../types/list";
 import List from "../List/List";
 import type { ListItemType } from "../../types/list-item";
 
-function cb(a: ListItemType, b: ListItemType){
-    return a.title.localeCompare(b.title);
-}
 
 export default function Board(): ReactNode{
     const [todoList, setTodoList] = useState<ListType>({
@@ -49,17 +46,34 @@ export default function Board(): ReactNode{
 
     };
 
-    const sortedTodoList = useMemo(() => {
-        return {...todoList, items: [...todoList.items].sort(cb)}
-    }, [todoList]);
+    // without useMemo(), without useCallback()
+    // const handleListItemClick = (id: string) : void => {
+    //     setTodoList((old) => {
+    //         const clone = [...old.items];
+    //         return {...old, items: clone.filter((item) => 
+    //         item.id !== id)};
+    //     })
 
-    const sortedDoingList = useMemo(() => {
-        return {...doingList, items: [...doingList.items].sort(cb)}
-    }, [doingList]);
+    // };
 
-    const sortedDoneList = useMemo(() => {
-        return {...doneList, items: [...doneList.items].sort(cb)}
-    }, [doneList]);
+    // with useMemo()
+    // const handleListItemClick = useMemo(() => {
+    //     return (id: string): void => {
+    //         setTodoList((old) => {
+    //             const clone = [...old.items];
+    //             return {...old, items: clone.filter((item) => 
+    //             item.id !== id)};
+    //         });
+    //     }
+    // }, []);
+
+    // with useCallback()
+    const handleListItemClick = useCallback((id: string): void => {
+        setTodoList((old) => {
+            const clone = [...old.items];
+            return{...old, items: clone.filter((item) => item.id !== id)};
+        })
+    }, []);
 
     return(
         <div className={styles.board}>
@@ -81,15 +95,15 @@ export default function Board(): ReactNode{
 
                 <ul className={styles.lists}>
                     <li>
-                        <List list={sortedTodoList} />
+                        <List list={todoList} onClick={handleListItemClick}/>
                     </li>
 
                     <li>
-                        <List list={sortedDoingList} />
+                        <List list={doingList} />
                     </li>
 
                     <li>
-                        <List list={sortedDoneList} />
+                        <List list={doneList} />
                     </li>
                 </ul>
             </div>
