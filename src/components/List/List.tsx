@@ -11,7 +11,7 @@ import ListItem from "../ListItem/ListItem";
 
 type Props = {
     list: ListType;
-    onClick?: (id: string) => void;
+    onClick?: (listId: string, itemId: string) => void;
 }
 
 const List = memo(function List({list, onClick} : Props): ReactNode{
@@ -29,7 +29,7 @@ const List = memo(function List({list, onClick} : Props): ReactNode{
                 {
                     list.items.map((item) => (
                     <li key={item.id}>
-                        <ListItem item={item} onClick={onClick} />
+                        <ListItem listId={list.id} item={item} onClick={onClick} />
                     </li>
                 ))
                 }

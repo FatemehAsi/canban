@@ -4,16 +4,17 @@ import styles from "./ListItem.module.css";
 import type { ListItemType } from "../../types/list-item";
 
 type Props = {
+    listId: string;
     item: ListItemType;
-    onClick?: (id: string) => void;
+    onClick?: (listId: string, itemId: string) => void;
 }
 
 
-const ListItem = memo( function ListItem({item, onClick}: Props): ReactNode{
+const ListItem = memo( function ListItem({listId, item, onClick}: Props): ReactNode{
     console.log(item.title);
     
     return(
-        <div className={styles["list-item"]} onClick={() => onClick?.(item.id)}>
+        <div className={styles["list-item"]} onClick={() => onClick?.(listId, item.id)}>
             {item.title}
         </div>
     );

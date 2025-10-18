@@ -10,10 +10,13 @@ import type { ListType } from "../../types/list";
 import List from "../List/List";
 // import type { ListItemType } from "../../types/list-item";
 import { listsData } from "../../data/lists-data";
+import Button from "../Button/Button";
 
 
 export default function Board(): ReactNode{
-    const [lists, setLists] = useState<ListType[]>(listsData)
+    const [lists, setLists] = useState<ListType[]>(listsData);
+    const [activeListId, setActiveListId] = useState<string | null>(null);
+    const [activeItemId, setActiveItemId] = useState<string | null>(null)
 
     // const [todoList, setTodoList] = useState<ListType>();
 
@@ -60,14 +63,9 @@ export default function Board(): ReactNode{
     // }, []);
 
      // with useCallback()
-    const handleListItemClick = useCallback((id: string): void => {
-        setLists((old) => {
-            const clone = {
-                ...old[0],
-                items: [...old[0].items].filter((item) => item.id !== id)
-            };
-            return[clone, old[1], old[2]]
-        })
+    const handleListItemClick = useCallback((listId: string, itemId: string): void => {
+       setActiveListId(listId);
+       setActiveItemId(itemId);
     }, []);
 
     return(
@@ -77,6 +75,17 @@ export default function Board(): ReactNode{
                 <div className={styles.title}>Board Title</div>
 
                 <div className={styles.actions}>
+                    {activeListId !== null && (
+                    <div className={styles.spacer}>
+                       {lists
+                       .filter((list) => list.id !== activeListId)
+                       .map((list) => (
+                        <Button key={list.id}>{list.title}</Button>
+                       ))}
+                       <Button>Remove</Button>
+                    </div>
+                    )}
+                    
                     <IconButton>
                         <MingcuteEdit2Line />
                     </IconButton>
@@ -89,18 +98,13 @@ export default function Board(): ReactNode{
             </div>
 
                 <ul className={styles.lists}>
-                    <li>
-                        <List list={lists[0]} onClick={handleListItemClick}/>
-                    </li>
-
-                    <li>
-                        <List list={lists[1]} />
-                    </li>
-
-                    <li>
-                        <List list={lists[2]} />
-                    </li>
+                    {lists.map((list) => (
+                        <li key={list.id}>
+                            <List list={list} onClick={handleListItemClick} />
+                        </li>
+                    ))}
                 </ul>
+                
             </div>
     )
 }
