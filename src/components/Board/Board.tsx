@@ -4,47 +4,31 @@ import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
 import MingcuteEdit2Line from "../../icons/MingcuteEdit2Line";
 import MingcuteAddLine from "../../icons/MingcuteAddLine";
-import MingcuteMore1Line from "../../icons/MingcuteMore1Line";
+// import MingcuteMore1Line from "../../icons/MingcuteMore1Line";
 import type { ListType } from "../../types/list";
 
 import List from "../List/List";
-import type { ListItemType } from "../../types/list-item";
+// import type { ListItemType } from "../../types/list-item";
+import { listsData } from "../../data/lists-data";
 
 
 export default function Board(): ReactNode{
-    const [todoList, setTodoList] = useState<ListType>({
-        id: "1",
-        title: "🔜 To Do",
-        items: [
-            {id:"1", title: "Setup Backend Project"},
-            {id:"2", title: "Find a Good Name for the Project"},
-            {id:"3", title: "Implement Landing Page"},
-        ],
-    });
+    const [lists, setLists] = useState<ListType[]>(listsData)
 
-     const [doingList] = useState<ListType>({
-        id: "2",
-        title: "🔨 Doing",
-        items: [
-            {id:"4", title: "Setup Frontend Project"},
-            {id:"5", title: "Design Landing Page"},
-        ],
-    });
+    // const [todoList, setTodoList] = useState<ListType>();
 
-     const [doneList] = useState<ListType>({
-        id: "3",
-        title: "🎉 Done",
-        items: [],
-    });
+    //  const [doingList] = useState<ListType>();
 
-    const handleEditButtonClick = () : void => {
-        setTodoList((old) => {
-            const clone = [...old.items];
-            clone.splice(1, 1);
-            return {...old, items: clone}
-        })
+    //  const [doneList] = useState<ListType>();
 
-    };
+    // const handleEditButtonClick = () : void => {
+    //     setTodoList((old) => {
+    //         const clone = [...old.items];
+    //         clone.splice(1, 1);
+    //         return {...old, items: clone}
+    //     })
+
+    // };
 
     // without useMemo(), without useCallback()
     // const handleListItemClick = (id: string) : void => {
@@ -68,10 +52,21 @@ export default function Board(): ReactNode{
     // }, []);
 
     // with useCallback()
+    // const handleListItemClick = useCallback((id: string): void => {
+    //     setTodoList((old) => {
+    //         const clone = [...old.items];
+    //         return{...old, items: clone.filter((item) => item.id !== id)};
+    //     })
+    // }, []);
+
+     // with useCallback()
     const handleListItemClick = useCallback((id: string): void => {
-        setTodoList((old) => {
-            const clone = [...old.items];
-            return{...old, items: clone.filter((item) => item.id !== id)};
+        setLists((old) => {
+            const clone = {
+                ...old[0],
+                items: [...old[0].items].filter((item) => item.id !== id)
+            };
+            return[clone, old[1], old[2]]
         })
     }, []);
 
@@ -82,7 +77,7 @@ export default function Board(): ReactNode{
                 <div className={styles.title}>Board Title</div>
 
                 <div className={styles.actions}>
-                    <IconButton onClick={handleEditButtonClick}>
+                    <IconButton>
                         <MingcuteEdit2Line />
                     </IconButton>
 
@@ -95,15 +90,15 @@ export default function Board(): ReactNode{
 
                 <ul className={styles.lists}>
                     <li>
-                        <List list={todoList} onClick={handleListItemClick}/>
+                        <List list={lists[0]} onClick={handleListItemClick}/>
                     </li>
 
                     <li>
-                        <List list={doingList} />
+                        <List list={lists[1]} />
                     </li>
 
                     <li>
-                        <List list={doneList} />
+                        <List list={lists[2]} />
                     </li>
                 </ul>
             </div>
