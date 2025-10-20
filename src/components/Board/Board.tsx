@@ -12,9 +12,24 @@ import List from "../List/List";
 import { listsData } from "../../data/lists-data";
 import Button from "../Button/Button";
 
+function save(lists: ListType[]): void{
+    localStorage.setItem("lists", JSON.stringify(lists));
+}
+
+function load(): ListType[] {
+    const item = localStorage.getItem("lists");
+
+    if(! item){
+        return listsData;
+    }
+
+    return JSON.parse(item);
+}
+
 
 export default function Board(): ReactNode{
-    const [lists, setLists] = useState<ListType[]>(listsData);
+    const [lists, setLists] = useState<ListType[]>(load);
+
     const [activeListId, setActiveListId] = useState<string | null>(null);
     const [activeItemId, setActiveItemId] = useState<string | null>(null)
 
@@ -68,6 +83,19 @@ export default function Board(): ReactNode{
        setActiveItemId(itemId);
     }, []);
 
+    const handleCreateButtonClick = (): void => {
+        setLists(old => {
+            const clone = [...old];
+
+            const id = globalThis.crypto.randomUUID();
+            clone[0] = {...clone[0], items: [...clone[0].items, {id, title: id}]};
+
+            save(clone);
+            return clone;
+        })
+
+    }
+
     const handleRemoveButtonClick = (): void => {
         setLists((old) => {
             try{
@@ -99,6 +127,7 @@ export default function Board(): ReactNode{
                 activeList.items.splice(activeItemIndex, 1);
 
                 clone[activeListIndex] = activeList;
+                save(clone);
                 return clone;
                         
             } finally{
@@ -152,6 +181,7 @@ export default function Board(): ReactNode{
                     clone[activeListIndex] = activeList;
                     clone[destinationListIndex] = destinationList;
 
+                    save(clone);
                     return clone;
 
                 } finally{
@@ -184,7 +214,7 @@ export default function Board(): ReactNode{
                         <MingcuteEdit2Line />
                     </IconButton>
 
-                    <IconButton>
+                    <IconButton onClick={handleCreateButtonClick}>
                         <MingcuteAddLine />
                     </IconButton>
                 </div>

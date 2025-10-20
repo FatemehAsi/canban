@@ -11,7 +11,7 @@ type Props = {
 
 
 const ListItem = memo( function ListItem({listId, item, onClick}: Props): ReactNode{
-    console.log(item.title);
+
     
     return(
         <div className={styles["list-item"]} onClick={() => onClick?.(listId, item.id)}>
