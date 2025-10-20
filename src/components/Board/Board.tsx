@@ -174,7 +174,7 @@ export default function Board(): ReactNode{
                        {lists
                        .filter((list) => list.id !== activeListId)
                        .map((list) => (
-                        <Button key={list.id}>{list.title}</Button>
+                        <Button key={list.id} onClick={() => handleMoveButtonClick(list.id)}>{list.title}</Button>
                        ))}
                        <Button onClick={handleRemoveButtonClick}>Remove</Button>
                     </div>
