@@ -28,6 +28,8 @@ function load(): ListType[] {
 
 
 export default function Board(): ReactNode{  
+    console.log("render");
+
     const [lists, setLists] = useState<ListType[]>(load);
 
     const [activeListId, setActiveListId] = useState<string | null>(null);
@@ -38,18 +40,23 @@ export default function Board(): ReactNode{
     }, [lists]);
 
     useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-        console.log("keydown");
-        
+        const handleDocumentKeyDown = (e: KeyboardEvent): void => {
+            console.log("keydown");
 
-        if(e.code !== "Escape"){
-            return;
+            if(e.code !== "Escape"){
+                return;
+            }
+
+            setActiveListId(null);
+            setActiveItemId(null);
         }
 
-        setActiveItemId(null);
-        setActiveListId(null);
-    });
-}, []);
+        document.addEventListener("keydown", handleDocumentKeyDown);
+
+        return (): void => {
+            document.removeEventListener("keydown", handleDocumentKeyDown);
+        };
+    }, []);
 
 
     // const [todoList, setTodoList] = useState<ListType>();

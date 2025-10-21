@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
 
+import { StrictMode } from 'react';
+
 import { BrowserRouter } from 'react-router';
 
 import { ErrorBoundary } from 'react-error-boundary';
@@ -15,9 +17,11 @@ import './styles/shapes.css';
 import './styles/typography.css';
 
 createRoot(document.getElementById('root')!).render(
+  <StrictMode>
   <ErrorBoundary FallbackComponent={ErrorPage}>
   <BrowserRouter>
     <App />
   </BrowserRouter>
   </ErrorBoundary>
+  </StrictMode>
 )
