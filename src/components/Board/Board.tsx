@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -31,7 +31,11 @@ export default function Board(): ReactNode{
     const [lists, setLists] = useState<ListType[]>(load);
 
     const [activeListId, setActiveListId] = useState<string | null>(null);
-    const [activeItemId, setActiveItemId] = useState<string | null>(null)
+    const [activeItemId, setActiveItemId] = useState<string | null>(null);
+
+    useEffect(() => {
+        save(lists)
+    }, [lists])
 
     // const [todoList, setTodoList] = useState<ListType>();
 
@@ -90,7 +94,7 @@ export default function Board(): ReactNode{
             const id = globalThis.crypto.randomUUID();
             clone[0] = {...clone[0], items: [...clone[0].items, {id, title: id}]};
 
-            save(clone);
+            // save(clone);
             return clone;
         })
 
@@ -127,7 +131,7 @@ export default function Board(): ReactNode{
                 activeList.items.splice(activeItemIndex, 1);
 
                 clone[activeListIndex] = activeList;
-                save(clone);
+                // save(clone);
                 return clone;
                         
             } finally{
@@ -181,7 +185,7 @@ export default function Board(): ReactNode{
                     clone[activeListIndex] = activeList;
                     clone[destinationListIndex] = destinationList;
 
-                    save(clone);
+                    // save(clone);
                     return clone;
 
                 } finally{
