@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useMemo, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -104,10 +104,10 @@ export default function Board(): ReactNode{
     // }, []);
 
      // with useCallback()
-    const handleListItemClick = useCallback((listId: string, itemId: string): void => {
+    const handleListItemClick = (listId: string, itemId: string): void => {
        setActiveListId(listId);
        setActiveItemId(itemId);
-    }, []);
+    };
 
     const handleCreateButtonClick = (): void => {
         setLists(old => {

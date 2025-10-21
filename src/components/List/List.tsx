@@ -1,4 +1,4 @@
-import {ReactNode, memo} from "react";
+import {ReactNode} from "react";
 
 import styles from "./List.module.css";
 import type { ListType } from "../../types/list";
@@ -14,7 +14,7 @@ type Props = {
     onClick?: (listId: string, itemId: string) => void;
 }
 
-const List = memo(function List({list, onClick} : Props): ReactNode{
+export default function List({list, onClick} : Props): ReactNode{
     return (
     <div className={styles.list}>
         <div className={styles.header}>
@@ -35,6 +35,5 @@ const List = memo(function List({list, onClick} : Props): ReactNode{
                 }
             </ul>
     </div>);
-})
+}
 
-export default List;
