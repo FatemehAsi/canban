@@ -27,7 +27,7 @@ function load(): ListType[] {
 }
 
 
-export default function Board(): ReactNode{
+export default function Board(): ReactNode{  
     const [lists, setLists] = useState<ListType[]>(load);
 
     const [activeListId, setActiveListId] = useState<string | null>(null);
@@ -35,7 +35,22 @@ export default function Board(): ReactNode{
 
     useEffect(() => {
         save(lists)
-    }, [lists])
+    }, [lists]);
+
+    useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+        console.log("keydown");
+        
+
+        if(e.code !== "Escape"){
+            return;
+        }
+
+        setActiveItemId(null);
+        setActiveListId(null);
+    });
+}, []);
+
 
     // const [todoList, setTodoList] = useState<ListType>();
 
