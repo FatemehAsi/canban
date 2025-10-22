@@ -122,11 +122,10 @@ export default function Board(): ReactNode{
 
     }
 
-    const handleRemoveButtonClick = (): void => {
+    const handleListItemRemove = (listId: string, itemId: string): void => {
         setLists((old) => {
-            try{
                 const activeListIndex = old.findIndex(
-                    (list) => list.id === activeListId,
+                    (list) => list.id === listId,
                 );
 
                 if(activeListIndex === -1){
@@ -142,7 +141,7 @@ export default function Board(): ReactNode{
                 } 
 
                 const activeItemIndex = activeList.items.findIndex(
-                    (item) => item.id === activeItemId,
+                    (item) => item.id === itemId,
                 );
 
                 if(activeItemIndex === -1){
@@ -156,16 +155,11 @@ export default function Board(): ReactNode{
                 // save(clone);
                 return clone;
                         
-            } finally{
-                setActiveListId(null);
-                setActiveItemId(null);
-            }
         });
     }
 
     const handleMoveButtonClick = (destinationListId: string): void => {
         setLists((old) => {
-            try{
 
                 const activeListIndex = old.findIndex(
                     (list) => list.id === activeListId,
@@ -210,10 +204,6 @@ export default function Board(): ReactNode{
                     // save(clone);
                     return clone;
 
-                } finally{
-                    setActiveListId(null);
-                    setActiveItemId(null);
-                }
             });
 
     }
@@ -232,7 +222,7 @@ export default function Board(): ReactNode{
                        .map((list) => (
                         <Button key={list.id} onClick={() => handleMoveButtonClick(list.id)}>{list.title}</Button>
                        ))}
-                       <Button onClick={handleRemoveButtonClick}>Remove</Button>
+                       {/* <Button onClick={handleListItemRemove}>Remove</Button> */}
                     </div>
                     )}
                     
@@ -250,7 +240,7 @@ export default function Board(): ReactNode{
                 <ul className={styles.lists}>
                     {lists.map((list) => (
                         <li key={list.id}>
-                            <List list={list} onClick={handleListItemClick} />
+                            <List list={list} onClick={handleListItemClick} onRemove={handleListItemRemove}/>
                         </li>
                     ))}
                 </ul>
