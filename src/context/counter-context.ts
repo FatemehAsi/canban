@@ -12,4 +12,4 @@ export const CounterContext = createContext<ContextValue>({
     increment: () => {},
     decrement: () => {},
     reset: () => {}
-})
+});

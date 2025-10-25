@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -11,6 +11,7 @@ import List from "../List/List";
 // import type { ListItemType } from "../../types/list-item";
 import { listsData } from "../../data/lists-data";
 import Button from "../Button/Button";
+import { CounterContext } from "../../context/counter-context";
 
 function save(lists: ListType[]): void{
     localStorage.setItem("lists", JSON.stringify(lists));
@@ -29,6 +30,9 @@ function load(): ListType[] {
 
 export default function Board(): ReactNode{  
     // console.log("render");
+
+    // const value = useContext(CounterContext);
+    const {count, increment} = useContext(CounterContext);
 
     const [lists, setLists] = useState<ListType[]>(load);
 
@@ -110,6 +114,8 @@ export default function Board(): ReactNode{
     };
 
     const handleCreateButtonClick = (): void => {
+        increment();
+        
         setLists(old => {
             const clone = [...old];
 
@@ -212,7 +218,7 @@ export default function Board(): ReactNode{
         <div className={styles.board}>
 
             <div className={styles.toolbar}>
-                <div className={styles.title}>Board Title</div>
+                <div className={styles.title}>Board Title {count}</div>
 
                 <div className={styles.actions}>
                     {activeListId !== null && (
