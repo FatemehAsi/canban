@@ -16,7 +16,7 @@ type Props = {
 
  export default function ListItem({listId, item, onClick, onRemove}: Props): ReactNode{
     const {decrement} = useContext(CounterContext)
-
+  
     const handleRemoveButtonClick = (e: MouseEvent<HTMLButtonElement>): void => {
         e.stopPropagation();
 
