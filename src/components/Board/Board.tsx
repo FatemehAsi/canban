@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { type ReactNode, useCallback, useContext, useEffect, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -9,39 +9,24 @@ import type { ListType } from "../../types/list";
 
 import List from "../List/List";
 // import type { ListItemType } from "../../types/list-item";
-import { listsData } from "../../data/lists-data";
 import Button from "../Button/Button";
-import { CounterContext } from "../../context/counter-context";
-
-function save(lists: ListType[]): void{
-    localStorage.setItem("lists", JSON.stringify(lists));
-}
-
-function load(): ListType[] {
-    const item = localStorage.getItem("lists");
-
-    if(! item){
-        return listsData;
-    }
-
-    return JSON.parse(item);
-}
+// import { CounterContext } from "../../context/counter-context";
+import { BoardContext } from "../../context/board-context";
 
 
-export default function Board(): ReactNode{  
+export default function Board(): ReactNode{
+    const {lists, create, move, remove} = useContext(BoardContext)  
     // console.log("render");
 
     // const value = useContext(CounterContext);
-    const {count, increment} = useContext(CounterContext);
+    // const {count, increment} = useContext(CounterContext);
 
-    const [lists, setLists] = useState<ListType[]>(load);
+    // const [lists, setLists] = useState<ListType[]>(load);
 
     const [activeListId, setActiveListId] = useState<string | null>(null);
     const [activeItemId, setActiveItemId] = useState<string | null>(null);
 
-    useEffect(() => {
-        save(lists)
-    }, [lists]);
+   
 
     useEffect(() => {
         const handleDocumentKeyDown = (e: KeyboardEvent): void => {
@@ -114,111 +99,28 @@ export default function Board(): ReactNode{
     };
 
     const handleCreateButtonClick = (): void => {
-        increment();
-        
-        setLists(old => {
-            const clone = [...old];
-
-            const id = globalThis.crypto.randomUUID();
-            clone[0] = {...clone[0], items: [...clone[0].items, {id, title: id}]};
-
-            // save(clone);
-            return clone;
-        })
-
-    }
+        create();
+    };
 
     const handleListItemRemove = (listId: string, itemId: string): void => {
-        setLists((old) => {
-                const activeListIndex = old.findIndex(
-                    (list) => list.id === listId,
-                );
-
-                if(activeListIndex === -1){
-                    console.error("Can not find desired list");
-                    return old;
-                }
-
-                const clone = [...old];
-                const activeList = {
-                    ...clone[activeListIndex],
-                    items: [...clone[activeListIndex].items]
-
-                } 
-
-                const activeItemIndex = activeList.items.findIndex(
-                    (item) => item.id === itemId,
-                );
-
-                if(activeItemIndex === -1){
-                    console.error("Can not find desired item.");
-                    return old;
-                }
-
-                activeList.items.splice(activeItemIndex, 1);
-
-                clone[activeListIndex] = activeList;
-                // save(clone);
-                return clone;
-                        
-        });
+        remove(listId, itemId)
+       
     }
 
-    const handleMoveButtonClick = (destinationListId: string): void => {
-        setLists((old) => {
+    const handleMoveButtonClick = (toListId: string): void => {
+      if(activeListId && activeItemId){
+        move(activeListId, activeItemId, toListId);
+      }
 
-                const activeListIndex = old.findIndex(
-                    (list) => list.id === activeListId,
-                );
-
-                const destinationListIndex = old.findIndex(
-                    (list) => list.id === destinationListId,
-                );
-
-                if(activeListIndex === -1 || destinationListIndex === -1){
-                    console.error("Can not find desired list");
-                    return old;
-                }
-
-                    const clone =[...old];
-
-                    const activeList = {
-                        ...clone[activeListIndex],
-                        items: [...clone[activeListIndex].items],
-                    }
-
-                    const destinationList = {
-                        ...clone[destinationListIndex],
-                        items: [...clone[destinationListIndex].items]
-                    }
-
-                    const activeItemIndex = activeList.items.findIndex(
-                        (item) => item.id === activeItemId,
-                    );
-
-                    if(activeItemIndex === -1){
-                        console.error("Can not find desired item");
-                        return old;
-                    }
-
-                    const [activeItem] = activeList.items.splice(activeItemIndex, 1);
-                    destinationList.items.push(activeItem);
-
-                    clone[activeListIndex] = activeList;
-                    clone[destinationListIndex] = destinationList;
-
-                    // save(clone);
-                    return clone;
-
-            });
-
+       setActiveListId(null);
+       setActiveItemId(null);
     }
 
     return(
         <div className={styles.board}>
 
             <div className={styles.toolbar}>
-                <div className={styles.title}>Board Title {count}</div>
+                <div className={styles.title}>Board Title</div>
 
                 <div className={styles.actions}>
                     {activeListId !== null && (

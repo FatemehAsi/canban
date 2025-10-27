@@ -6,6 +6,7 @@ import styles from "./BoardPage.module.css";
 // import MingcuteEdit2Line from "../../icons/MingcuteEdit2Line";
 import Board from "../../components/Board/Board";
 import CounterProvider from "../../providers/CounterProvider";
+import BoardProvider from "../../providers/BoardProvider";
 
 export default function BoardPage(): ReactNode{
 
@@ -13,9 +14,9 @@ export default function BoardPage(): ReactNode{
     return(
         <div className={styles["board-page"]}>
 
-            <CounterProvider>
+            <BoardProvider>
                 <Board />
-            </CounterProvider> 
+            </BoardProvider> 
             
         </div>
     );

@@ -4,7 +4,7 @@ import styles from "./ListItem.module.css";
 import type { ListItemType } from "../../types/list-item";
 import IconButton from "../IconButton/IconButton";
 import MingcuteDelete2Line from "../../icons/MingcuteDelete2Line";
-import { CounterContext } from "../../context/counter-context";
+// import { CounterContext } from "../../context/counter-context";
 
 type Props = {
     listId: string;
@@ -15,12 +15,12 @@ type Props = {
 
 
  export default function ListItem({listId, item, onClick, onRemove}: Props): ReactNode{
-    const {decrement} = useContext(CounterContext)
+    // const {decrement} = useContext(CounterContext)
   
     const handleRemoveButtonClick = (e: MouseEvent<HTMLButtonElement>): void => {
         e.stopPropagation();
 
-        decrement();
+        // decrement();
 
 
         onRemove?.(listId, item.id);
