@@ -12,10 +12,9 @@ import ListItem from "../ListItem/ListItem";
 type Props = {
     list: ListType;
     onClick?: (listId: string, itemId: string) => void;
-    onRemove?: (listId: string, itemId: string) => void;
 }
 
-export default function List({list, onClick, onRemove} : Props): ReactNode{
+export default function List({list, onClick} : Props): ReactNode{
     return (
     <div className={styles.list}>
         <div className={styles.header}>
@@ -30,7 +29,7 @@ export default function List({list, onClick, onRemove} : Props): ReactNode{
                 {
                     list.items.map((item) => (
                     <li key={item.id}>
-                        <ListItem listId={list.id} item={item} onClick={onClick} onRemove={onRemove} />
+                        <ListItem listId={list.id} item={item} onClick={onClick}/>
                     </li>
                 ))
                 }

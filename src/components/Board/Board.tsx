@@ -148,7 +148,7 @@ export default function Board(): ReactNode{
                 <ul className={styles.lists}>
                     {lists.map((list) => (
                         <li key={list.id}>
-                            <List list={list} onClick={handleListItemClick} onRemove={handleListItemRemove}/>
+                            <List list={list} onClick={handleListItemClick}/>
                         </li>
                     ))}
                 </ul>
