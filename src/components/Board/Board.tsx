@@ -1,4 +1,4 @@
-import { type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import { type ReactNode, useCallback, use, useEffect, useState } from "react";
 
 import styles from "./Board.module.css";
 import IconButton from "../IconButton/IconButton";
@@ -15,11 +15,11 @@ import { BoardContext } from "../../context/board-context";
 
 
 export default function Board(): ReactNode{
-    const {lists, create, move, remove} = useContext(BoardContext)  
+    const {lists, create, move, remove} = use(BoardContext)  
     // console.log("render");
 
-    // const value = useContext(CounterContext);
-    // const {count, increment} = useContext(CounterContext);
+    // const value = use(CounterContext);
+    // const {count, increment} = use(CounterContext);
 
     // const [lists, setLists] = useState<ListType[]>(load);
 

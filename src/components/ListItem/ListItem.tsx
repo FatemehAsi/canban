@@ -1,4 +1,4 @@
-import { ReactNode, MouseEvent, useContext} from "react";
+import { ReactNode, MouseEvent, use} from "react";
 
 import styles from "./ListItem.module.css";
 import type { ListItemType } from "../../types/list-item";
@@ -15,8 +15,8 @@ type Props = {
 
 
  export default function ListItem({listId, item, onClick}: Props): ReactNode{
-    // const {decrement} = useContext(CounterContext)
-    const {remove} = useContext(BoardContext);
+    // const {decrement} = use(CounterContext)
+    const {remove} = use(BoardContext);
 
   
     const handleRemoveButtonClick = (e: MouseEvent<HTMLButtonElement>): void => {
