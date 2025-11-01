@@ -8,6 +8,7 @@ import { BoardContext } from "../../context/board-context";
 import { ActiveItemContext } from "../../context/active-item-context";
 import clsx from "clsx";
 // import { CounterContext } from "../../context/counter-context";
+import {toast} from "react-toastify";
 
 type Props = {
     listId: string;
@@ -36,6 +37,8 @@ type Props = {
 
         remove(listId, item.id);
         deactivate();
+
+        toast.success("Item removed successfully!");
     };
     
     return(

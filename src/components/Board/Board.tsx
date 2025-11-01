@@ -13,6 +13,7 @@ import Button from "../Button/Button";
 // import { CounterContext } from "../../context/counter-context";
 import { BoardContext } from "../../context/board-context";
 import { ActiveItemContext } from "../../context/active-item-context";
+import { toast } from "react-toastify";
 
 
 export default function Board(): ReactNode{
@@ -79,11 +80,13 @@ export default function Board(): ReactNode{
 
     const handleCreateButtonClick = (): void => {
         create();
+        toast.success("Item created successfully!");
     };
 
     const handleMoveButtonClick = (toListId: string): void => {
       if(activeListId && activeItemId){
         move(activeListId, activeItemId, toListId);
+        toast.success("Item moved successfully!");
       }
 
        deactivate();
