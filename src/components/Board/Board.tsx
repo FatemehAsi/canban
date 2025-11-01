@@ -12,10 +12,12 @@ import List from "../List/List";
 import Button from "../Button/Button";
 // import { CounterContext } from "../../context/counter-context";
 import { BoardContext } from "../../context/board-context";
+import { ActiveItemContext } from "../../context/active-item-context";
 
 
 export default function Board(): ReactNode{
-    const {lists, create, move, remove} = use(BoardContext)  
+    const {lists, create, move, remove} = use(BoardContext);
+    const {activeListId, activeItemId, activate, deactivate} = use(ActiveItemContext);  
     // console.log("render");
 
     // const value = use(CounterContext);
@@ -23,30 +25,7 @@ export default function Board(): ReactNode{
 
     // const [lists, setLists] = useState<ListType[]>(load);
 
-    const [activeListId, setActiveListId] = useState<string | null>(null);
-    const [activeItemId, setActiveItemId] = useState<string | null>(null);
-
-   
-
-    useEffect(() => {
-        const handleDocumentKeyDown = (e: KeyboardEvent): void => {
-            // console.log("keydown");
-
-            if(e.code !== "Escape"){
-                return;
-            }
-
-            setActiveListId(null);
-            setActiveItemId(null);
-        }
-
-        document.addEventListener("keydown", handleDocumentKeyDown);
-
-        return (): void => {
-            document.removeEventListener("keydown", handleDocumentKeyDown);
-        };
-    }, []);
-
+    // 
 
     // const [todoList, setTodoList] = useState<ListType>();
 
@@ -93,27 +72,21 @@ export default function Board(): ReactNode{
     // }, []);
 
      // with useCallback()
-    const handleListItemClick = (listId: string, itemId: string): void => {
-       setActiveListId(listId);
-       setActiveItemId(itemId);
-    };
+
+    // const handleListItemClick = (listId: string, itemId: string): void => {
+    //    activate(listId, itemId)
+    // };
 
     const handleCreateButtonClick = (): void => {
         create();
     };
-
-    const handleListItemRemove = (listId: string, itemId: string): void => {
-        remove(listId, itemId)
-       
-    }
 
     const handleMoveButtonClick = (toListId: string): void => {
       if(activeListId && activeItemId){
         move(activeListId, activeItemId, toListId);
       }
 
-       setActiveListId(null);
-       setActiveItemId(null);
+       deactivate();
     }
 
     return(
@@ -148,7 +121,7 @@ export default function Board(): ReactNode{
                 <ul className={styles.lists}>
                     {lists.map((list) => (
                         <li key={list.id}>
-                            <List list={list} onClick={handleListItemClick}/>
+                            <List list={list} />
                         </li>
                     ))}
                 </ul>
