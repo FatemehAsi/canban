@@ -13,14 +13,17 @@ export default function BoardPage(): ReactNode{
 
     // const {id} = useParams();
     return(
-        <div className={styles["board-page"]}>
+        
 
             <BoardProvider>
                 <ActiveItemProvider>
-                   <Board />
+
+                   <div className={styles["board-page"]}>
+                        <Board />
+                   </div>
+
                 </ActiveItemProvider>
             </BoardProvider> 
             
-        </div>
     );
 }
