@@ -10,6 +10,7 @@ import BoardProvider from "../../providers/BoardProvider";
 import ActiveItemProvider from "../../providers/ActiveItemProvider";
 import Modal from "../../components/Modal/Modal";
 import Button from "../../components/Button/Button";
+import TextInput from "../../components/TextInput/TextInput";
 
 export default function BoardPage(): ReactNode{
     // const {id} = useParams();
@@ -27,6 +28,9 @@ export default function BoardPage(): ReactNode{
                 <ActiveItemProvider>
 
                    <div className={styles["board-page"]}>
+                    <TextInput lable="this is label" />
+                    <TextInput lable="this is lable 2" />
+                    
                     <Button color="primary" onClick={handleOpenButtonClick}>Open</Button>
 
                     <Modal ref={ref} heading="This is heading">
