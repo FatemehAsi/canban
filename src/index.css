@@ -9,6 +9,9 @@
 
 html{
     font-family: "vazirmatn", sans-serif;
+
+    caret-color: var(--color-primary);
+    accent-color: var(--color-primary);
 }
 
 input,
