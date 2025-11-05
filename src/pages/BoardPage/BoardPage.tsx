@@ -8,7 +8,8 @@ import styles from "./BoardPage.module.css";
 // import CounterProvider from "../../providers/CounterProvider";
 import BoardProvider from "../../providers/BoardProvider";
 import ActiveItemProvider from "../../providers/ActiveItemProvider";
-import Modal from "../../components/Modal/Modal";
+// import Modal from "../../components/Modal/Modal";
+import CreateListItemModal from "../../components/CreateListItemModal/CreateListItemModal";
 import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 
@@ -33,9 +34,8 @@ export default function BoardPage(): ReactNode{
                     
                     <Button color="primary" onClick={handleOpenButtonClick}>Open</Button>
 
-                    <Modal ref={ref} heading="This is heading">
-                        This is children
-                    </Modal>
+                    <CreateListItemModal ref={ref} heading="This is heading" />
+                        
                         {/* <Board /> */}
                    </div>
 
