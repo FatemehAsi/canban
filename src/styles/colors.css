@@ -83,6 +83,8 @@
 --color-primary: var(--color-blue-8);
 --color-primary-dark: var(--color-blue-9);
 --color-primary-contrast: var(--color-white);
+
+--color-danger: var(--color-red-7);
 }
 /*utility class name of it is always --color-main we can say => background-color: --color-main bar asas class ke dade mishe*/
 .gray{

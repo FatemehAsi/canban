@@ -14,5 +14,15 @@
         }
 
     }
+
+    .error{
+        color: var(--color-danger);
+    }
+
+    &.error{
+        input{
+            border-color: var(--color-danger);
+        }
+    }
     
 } 
