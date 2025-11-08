@@ -9,19 +9,12 @@ import Board from "../../components/Board/Board";
 import BoardProvider from "../../providers/BoardProvider";
 import ActiveItemProvider from "../../providers/ActiveItemProvider";
 // import Modal from "../../components/Modal/Modal";
-import CreateListItemModal from "../../components/CreateListItemModal/CreateListItemModal";
+// import CreateListItemModal from "../../components/CreateListItemModal/CreateListItemModal";
 import Button from "../../components/Button/Button";
 // import TextInput from "../../components/TextInput/TextInput";
 
 export default function BoardPage(): ReactNode{
     // const {id} = useParams();
-
-    const ref = useRef<HTMLDialogElement>(null);
-    
-
-    const handleOpenButtonClick = (): void => {
-        ref.current?.showModal();
-    }
     return(
         
 
@@ -32,11 +25,8 @@ export default function BoardPage(): ReactNode{
                     {/* <TextInput lable="this is label" />
                     <TextInput lable="this is lable 2" /> */}
                     
-                    <Button color="primary" onClick={handleOpenButtonClick}>Open</Button>
-
-                    <CreateListItemModal ref={ref} listId="1" />
-                        
-                        <Board />
+                    {/* <Button color="primary" onClick={handleOpenButtonClick}>Open</Button> */}
+                    <Board />
                    </div>
 
                 </ActiveItemProvider>

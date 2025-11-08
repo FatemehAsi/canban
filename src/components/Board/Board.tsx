@@ -17,7 +17,7 @@ import { toast } from "react-toastify";
 
 
 export default function Board(): ReactNode{
-    const {lists, create, move, remove} = use(BoardContext);
+    const {lists, move} = use(BoardContext);
     const {activeListId, activeItemId, activate, deactivate} = use(ActiveItemContext);  
     // console.log("render");
 
@@ -78,10 +78,10 @@ export default function Board(): ReactNode{
     //    activate(listId, itemId)
     // };
 
-    const handleCreateButtonClick = (): void => {
-        create();
-        toast.success("Item created successfully!");
-    };
+    // const handleCreateButtonClick = (): void => {
+    //     create();
+    //     toast.success("Item created successfully!");
+    // };
 
     const handleMoveButtonClick = (toListId: string): void => {
       if(activeListId && activeItemId){
@@ -114,7 +114,7 @@ export default function Board(): ReactNode{
                         <MingcuteEdit2Line />
                     </IconButton>
 
-                    <IconButton onClick={handleCreateButtonClick}>
+                    <IconButton>
                         <MingcuteAddLine />
                     </IconButton>
                 </div>

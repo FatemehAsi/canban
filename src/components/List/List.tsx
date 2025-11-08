@@ -1,4 +1,4 @@
-import {ReactNode} from "react";
+import {ReactNode, useRef} from "react";
 
 import styles from "./List.module.css";
 import type { ListType } from "../../types/list";
@@ -8,6 +8,8 @@ import IconButton from "../IconButton/IconButton";
 // import MingcuteAddLine from "../../icons/MingcuteAddLine";
 import MingcuteMore1Line from "../../icons/MingcuteMore1Line";
 import ListItem from "../ListItem/ListItem";
+import CreateListItemModal from "../CreateListItemModal/CreateListItemModal";
+import { MingcuteAddLine } from "../../icons/MingcuteAddLine";
 
 type Props = {
     list: ListType;
@@ -15,14 +17,28 @@ type Props = {
 }
 
 export default function List({list} : Props): ReactNode{
+    const ref = useRef<HTMLDialogElement>(null);
+
+    const handleOpenButtonClick = (): void => {
+        ref.current?.showModal();
+    }
+
     return (
     <div className={styles.list}>
         <div className={styles.header}>
 
             <div className={styles.title}>{list.title}</div>
+                    <div className={styles.actions}>
+                    <IconButton onClick={handleOpenButtonClick}>
+                        <MingcuteAddLine />
+                    </IconButton>
+
                     <IconButton>
                         <MingcuteMore1Line />
                     </IconButton>
+
+                    </div>
+                    
             </div>
 
             <ul className={styles.items}>
@@ -34,6 +50,7 @@ export default function List({list} : Props): ReactNode{
                 ))
                 }
             </ul>
+            <CreateListItemModal ref={ref} listId={list.id} />
     </div>);
 }
 
