@@ -31,9 +31,11 @@ export default function CreateListItemModal({
 
         const [titleError, setTitleError] = useState<string | null>(null);
 
+        const formRef = useRef<HTMLFormElement>(null);
+
         const handleModalClose = (): void => {
             setTitleError(null);
-            e.currentTarget.reset();
+            formRef.current?.reset();
             
         }
 
@@ -50,12 +52,10 @@ export default function CreateListItemModal({
             const title = formData.get("title") as string;
 
             if(!validateTitle(title)){
-
                 return;
-
             }
 
-            create(listId, {id, title});
+            create(listId, {id, title: title.trim()});
             toast.success("Item created successfully!");
             
             
@@ -85,7 +85,8 @@ export default function CreateListItemModal({
                 heading="Create a new Item"
                 onClose={handleModalClose}
                 {...otherProps}>
-        <form onSubmit={handleFormSubmit}>
+        <form ref={formRef} onSubmit={handleFormSubmit}>
+
             <TextInput lable="Title" type="text" name="title" error={titleError}/>
             <div className={styles.actions}>
                 <Button type="reset" onClick={handleCancelButtonClick}>Cancel</Button>
