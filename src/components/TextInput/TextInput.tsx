@@ -11,28 +11,28 @@ type Props = ComponentProps<'input'> & {
 export default function TextInput({className, lable, error, ...otherProps}: Props): ReactNode{
     const id = useId();
 
-    const [value, setValue] = useState<string>('');
+    // const [value, setValue] = useState<string>('');
 
-    const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    // const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
 
-        const n = Number.parseInt(e.target.value.replaceAll(/\D/g, ""));
+        // const n = Number.parseInt(e.target.value.replaceAll(/\D/g, ""));
 
-        if(Number.isNaN(n)){
-            return;
-        }
+        // if(Number.isNaN(n)){
+        //     return;
+        // }
 
         // const value = e.target.value;
         // console.log((+value).toLocaleString());
-        setValue(n.toLocaleString());
-        
-    }
+        // setValue(n.toLocaleString());
+
+
 
 
     return(
         <div className={clsx(styles["text-input"], !!error && styles.error, className)}>
 
             <label htmlFor={id}>{lable}</label>
-            <input id={id} {...otherProps} value={value} onChange={handleInputChange}/>
+            <input id={id} {...otherProps} />
             <span className={styles.error}>{error || "\u00A0"}</span>
 
         </div>

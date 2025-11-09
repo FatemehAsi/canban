@@ -1,4 +1,4 @@
-import { useRef, use, type ComponentProps, type FormEvent, type ReactNode, useState } from "react";
+import { useRef, use, type ComponentProps, type FormEvent, type ReactNode, useState, type ChangeEvent } from "react";
 
 import clsx from "clsx";
 
@@ -29,6 +29,7 @@ export default function CreateListItemModal({
         // const formRef = useRef<HTMLFormElement>(null);
         const {create} = use(BoardContext);
 
+        const [title, setTitle] = useState<string>("")
         const [titleError, setTitleError] = useState<string | null>(null);
 
         const formRef = useRef<HTMLFormElement>(null);
@@ -64,6 +65,12 @@ export default function CreateListItemModal({
             // console.log(formRef.current?.value);
         }
 
+        const handleTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+            const value = e.target.value;
+
+            setTitle(value);
+        }
+
         const validateTitle = (title: unknown): boolean => {
             if(typeof title !== "string"){
                 setTitleError("Titltle should be a string!");
@@ -87,7 +94,7 @@ export default function CreateListItemModal({
                 {...otherProps}>
         <form ref={formRef} onSubmit={handleFormSubmit}>
 
-            <TextInput lable="Title" type="text" name="title" error={titleError}/>
+            <TextInput lable="Title" type="text" name="title" value={title} error={titleError} onChange={handleTitleChange}/>
             <div className={styles.actions}>
                 <Button type="reset" onClick={handleCancelButtonClick}>Cancel</Button>
                 <Button color="primary">Submit</Button> 
