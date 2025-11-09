@@ -15,7 +15,7 @@ export default function TextInput({className, lable, error, ...otherProps}: Prop
 
             <label htmlFor={id}>{lable}</label>
             <input id={id} {...otherProps} />
-            <span className={styles.error}>{error}</span>
+            <span className={styles.error}>{error || "\u00A0"}</span>
 
         </div>
     )
