@@ -17,9 +17,9 @@ export default function Modal({ref, className, heading, children, onClick, ...ot
         // console.log('currentTarget', e.currentTarget);
         if(e.target === e.currentTarget){
            ref.current?.close();
-        }
-
+        } else{
         onClick?.(e);
+        }
     };
 
     const handleCloseButtonClick = (): void => {

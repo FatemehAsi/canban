@@ -17,9 +17,9 @@ type Props = {
 }
 
 export default function List({list} : Props): ReactNode{
-    const ref = useRef<HTMLDialogElement>(null);
+    const ModalRef = useRef<HTMLDialogElement>(null);
 
-    const handleOpenButtonClick = (): void => {
+    const handleClickButtonClick = (): void => {
         ref.current?.showModal();
     }
 
@@ -29,7 +29,7 @@ export default function List({list} : Props): ReactNode{
 
             <div className={styles.title}>{list.title}</div>
                     <div className={styles.actions}>
-                    <IconButton onClick={handleOpenButtonClick}>
+                    <IconButton onClick={handleClickButtonClick}>
                         <MingcuteAddLine />
                     </IconButton>
 
