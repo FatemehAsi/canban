@@ -23,7 +23,7 @@
             font-weight: 700;
         }
 
-        .actions{
+        /* .actions{
             display: flex;
             align-items: center;
 
@@ -32,7 +32,7 @@
                 align-items: center;
                 gap: 1rem;
             }
-        }
+        } */
    }
 
     .lists{

@@ -22,8 +22,8 @@
        }
     }
 
-    &.active{
+    /* &.active{
         border-color: var(--color-primary);
-    }
-}
+    } */
+} 
 

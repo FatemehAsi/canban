@@ -7,7 +7,7 @@ import styles from "./BoardPage.module.css";
 import Board from "../../components/Board/Board";
 // import CounterProvider from "../../providers/CounterProvider";
 import BoardProvider from "../../providers/BoardProvider";
-import ActiveItemProvider from "../../providers/ActiveItemProvider";
+// import ActiveItemProvider from "../../providers/ActiveItemProvider";
 // import Modal from "../../components/Modal/Modal";
 // import CreateListItemModal from "../../components/CreateListItemModal/CreateListItemModal";
 // import Button from "../../components/Button/Button";
@@ -19,7 +19,6 @@ export default function BoardPage(): ReactNode{
         
 
             <BoardProvider>
-                <ActiveItemProvider>
 
                    <div className={styles["board-page"]}>
                     {/* <TextInput lable="this is label" />
@@ -29,7 +28,6 @@ export default function BoardPage(): ReactNode{
                     <Board />
                    </div>
 
-                </ActiveItemProvider>
             </BoardProvider> 
             
     );

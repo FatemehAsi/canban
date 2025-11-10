@@ -18,8 +18,10 @@ import { toast } from "react-toastify";
 
 export default function Board(): ReactNode{
     // const {lists, move} = use(BoardContext);
-    const {lists, dispatchLists} = use(BoardContext);
-    const {activeListId, activeItemId, activate, deactivate} = use(ActiveItemContext);  
+    // const {lists, dispatchLists} = use(BoardContext);
+    const {lists} = use(BoardContext);
+
+    // const {activeListId, activeItemId, activate, deactivate} = use(ActiveItemContext);  
     // console.log("render");
 
     // const value = use(CounterContext);
@@ -84,15 +86,15 @@ export default function Board(): ReactNode{
     //     toast.success("Item created successfully!");
     // };
 
-    const handleMoveButtonClick = (toListId: string): void => {
-      if(activeListId && activeItemId){
-        // move(activeListId, activeItemId, toListId);
-        dispatchLists({type: "moved", fromListId: activeListId, itemId: activeItemId, toListId});
-        toast.success("Item moved successfully!");
-      }
+    // const handleMoveButtonClick = (toListId: string): void => {
+    //   if(activeListId && activeItemId){
+    //     // move(activeListId, activeItemId, toListId);
+    //     dispatchLists({type: "moved", fromListId: activeListId, itemId: activeItemId, toListId});
+    //     toast.success("Item moved successfully!");
+    //   }
 
-       deactivate();
-    }
+    //    deactivate();
+    // }
 
     return(
         <div className={styles.board}>
@@ -101,16 +103,16 @@ export default function Board(): ReactNode{
                 <div className={styles.title}>Board Title</div>
 
                 <div className={styles.actions}>
-                    {activeListId !== null && (
+                    {/* {activeListId !== null && (
                     <div className={styles.spacer}>
                        {lists
                        .filter((list) => list.id !== activeListId)
                        .map((list) => (
                         <Button key={list.id} onClick={() => handleMoveButtonClick(list.id)}>{list.title}</Button>
-                       ))}
+                       ))} */}
                        {/* <Button onClick={handleListItemRemove}>Remove</Button> */}
-                    </div>
-                    )}
+                    {/* </div>
+                    )} */}
                     
                     <IconButton>
                         <MingcuteEdit2Line />
