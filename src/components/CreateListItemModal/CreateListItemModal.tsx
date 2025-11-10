@@ -27,7 +27,8 @@ export default function CreateListItemModal({
      ...otherProps
      }: Props): ReactNode{
         // const formRef = useRef<HTMLFormElement>(null);
-        const {create} = use(BoardContext);
+        // const {create} = use(BoardContext);
+        const {dispatchLists} = use(BoardContext);
 
         // const [shouldValidateOnChange, setShouldValidateOnChange] = useState<boolean>(false);
 
@@ -65,7 +66,8 @@ export default function CreateListItemModal({
             }
 
             const id = globalThis.crypto.randomUUID();      
-            create(listId, {id, title});
+            // create(listId, {id, title});
+            dispatchLists({type: "created", listId, item: {id, title}});
             toast.success("Item created successfully!");
             ref.current?.close();
             // console.log(formRef.current?.value);

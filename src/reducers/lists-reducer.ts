@@ -1,7 +1,7 @@
 import type { ListType } from "../types/list";
 import type { ListItemType } from "../types/list-item";
 
-type Action =
+export type ListsAction =
 | {
     type: "created";
     listId: string;

@@ -17,7 +17,8 @@ import { toast } from "react-toastify";
 
 
 export default function Board(): ReactNode{
-    const {lists, move} = use(BoardContext);
+    // const {lists, move} = use(BoardContext);
+    const {lists, dispatchLists} = use(BoardContext);
     const {activeListId, activeItemId, activate, deactivate} = use(ActiveItemContext);  
     // console.log("render");
 
@@ -85,7 +86,8 @@ export default function Board(): ReactNode{
 
     const handleMoveButtonClick = (toListId: string): void => {
       if(activeListId && activeItemId){
-        move(activeListId, activeItemId, toListId);
+        // move(activeListId, activeItemId, toListId);
+        dispatchLists({type: "moved", fromListId: activeListId, itemId: activeItemId, toListId});
         toast.success("Item moved successfully!");
       }
 
