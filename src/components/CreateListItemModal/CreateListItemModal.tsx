@@ -29,15 +29,18 @@ export default function CreateListItemModal({
         // const formRef = useRef<HTMLFormElement>(null);
         const {create} = use(BoardContext);
 
-        const [title, setTitle] = useState<string>("")
+        // const [shouldValidateOnChange, setShouldValidateOnChange] = useState<boolean>(false);
+
+        const [title, setTitle] = useState<string>("");
         const [titleError, setTitleError] = useState<string | null>(null);
 
         const formRef = useRef<HTMLFormElement>(null);
 
+        const shouldValidateOnChange = useRef<boolean>(false);
+
         const handleModalClose = (): void => {
             setTitleError(null);
-            formRef.current?.reset();
-            
+            formRef.current?.reset();  
         }
 
         const handleCancelButtonClick = (): void => {
@@ -45,40 +48,52 @@ export default function CreateListItemModal({
             ref.current?.close();   
         }
 
+        const handleFormReset = (): void => {
+            setTitle("");
+            shouldValidateOnChange.current = false;
+        }
+
         const handleFormSubmit = (e: FormEvent<HTMLFormElement>): void => {
             e.preventDefault();
+            shouldValidateOnChange.current = true;
 
-            const formData = new FormData(e.currentTarget);
-            const id = globalThis.crypto.randomUUID();      
-            const title = formData.get("title") as string;
+            // const formData = new FormData(e.currentTarget);
+            // const title = formData.get("title") as string;
 
             if(!validateTitle(title)){
                 return;
             }
 
-            create(listId, {id, title: title.trim()});
+            const id = globalThis.crypto.randomUUID();      
+            create(listId, {id, title});
             toast.success("Item created successfully!");
-            
-            
             ref.current?.close();
-
             // console.log(formRef.current?.value);
         }
 
         const handleTitleChange = (e: ChangeEvent<HTMLInputElement>): void => {
-            const value = e.target.value;
+            const value = e.target.value.trim();
+
+            if(shouldValidateOnChange.current){
+                validateTitle(value);
+            }
 
             setTitle(value);
         }
 
-        const validateTitle = (title: unknown): boolean => {
-            if(typeof title !== "string"){
-                setTitleError("Titltle should be a string!");
+        const validateTitle = (title: string): boolean => {
+            // if(typeof title !== "string"){
+            //     setTitleError("Titltle should be a string!");
+            //     return false;
+            // }
+
+            if(title.length === 0){
+                setTitleError("Title cannot be empty!")
                 return false;
             }
 
-            if(title.trim().length === 0){
-                setTitleError("Title cannot be empty!")
+            if(title.length < 5){
+                setTitleError("Title must be at least 5 characters.");
                 return false;
             }
 
@@ -92,7 +107,7 @@ export default function CreateListItemModal({
                 heading="Create a new Item"
                 onClose={handleModalClose}
                 {...otherProps}>
-        <form ref={formRef} onSubmit={handleFormSubmit}>
+        <form ref={formRef} onSubmit={handleFormSubmit} onReset={handleFormReset}>
 
             <TextInput lable="Title" type="text" name="title" value={title} error={titleError} onChange={handleTitleChange}/>
             <div className={styles.actions}>
