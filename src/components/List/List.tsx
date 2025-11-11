@@ -12,11 +12,12 @@ import CreateListItemModal from "../CreateListItemModal/CreateListItemModal";
 import { MingcuteAddLine } from "../../icons/MingcuteAddLine";
 
 type Props = {
+    listIndex: number;
     list: ListType;
     // onClick?: (listId: string, itemId: string) => void;
 }
 
-export default function List({list} : Props): ReactNode{
+export default function List({listIndex, list} : Props): ReactNode{
     const ModalRef = useRef<HTMLDialogElement>(null);
 
     const handleClickButtonClick = (): void => {
@@ -43,14 +44,14 @@ export default function List({list} : Props): ReactNode{
 
             <ul className={styles.items}>
                 {
-                    list.items.map((item) => (
+                    list.items.map((item, listIndex) => (
                     <li key={item.id}>
-                        <ListItem listId={list.id} item={item} />
+                        <ListItem listIndex={listIndex} itemIndex={itemIndex} />
                     </li>
                 ))
                 }
             </ul>
-            <CreateListItemModal ref={ModalRef} listId={list.id} />
+            <CreateListItemModal ref={ModalRef} listIndex={listIndex} />
     </div>);
 }
 

@@ -11,13 +11,14 @@ import { BoardContext } from "../../context/board-context";
 import {toast} from "react-toastify";
 
 type Props = {
-    listId: string;
+    listIndex: number;
+    itemIndex: number;
     item: ListItemType;
     // onClick?: (listId: string, itemId: string) => void;
 }
 
 
- export default function ListItem({listId, item}: Props): ReactNode{
+ export default function ListItem({listIndex, ItemIndex, item}: Props): ReactNode{
     // const {decrement} = use(CounterContext)
     // const {remove} = use(BoardContext);
     const {dispatchLists} = use(BoardContext);
@@ -37,7 +38,7 @@ type Props = {
         // decrement();
 
         // remove(listId, item.id);
-        dispatchLists({type: "removed", listId, itemId: item.id});
+        dispatchLists({type: "item-removed", listIndex, ItemIndex});
         // deactivate();
 
         toast.success("Item removed successfully!");

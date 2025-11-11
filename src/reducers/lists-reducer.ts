@@ -1,30 +1,27 @@
 import type { ListType } from "../types/list";
 import type { ListItemType } from "../types/list-item";
+import type {Draft} from "immer";
 
 export type ListsAction =
 | {
-    type: "created";
-    listId: string;
+    type: "item_created";
+    listIndex: number;
     item: ListItemType;
 }
 
 | {
-    type: "moved";
-    fromListId: string;
-    itemId: string;
-    toListId: string;
+    type: "item_removed";
+    listIndex: number;
+    itemIndex: number;
 }
 
-| {
-    type: "removed";
-    listId: string;
-    itemId: string;
-}
-
-export function listsReducer(state: ListType[], action: Action): ListType[] {
+export function listsReducer(
+    draft: Draft<ListType[]>,
+    action: ListsAction,
+): void{
     switch(action.type){
 
-        case "created":
+        case "item_created":
         {
             // const clone = [...state];
 
@@ -33,104 +30,19 @@ export function listsReducer(state: ListType[], action: Action): ListType[] {
 
             // save(clone);
             // return clone;
-            const listIndex = state.findIndex((list) => list.id === action.listId);
-
-            if(listIndex === -1) {
-                console.log("Cannot find desired list.");
-                return state;
-            }
-
-            const clone = [...state];
-            const list = {
-                ...clone[listIndex],
-                items: [...clone[listIndex].items]
-            };
-
+            const list = draft[action.listIndex];
             list.items.push(action.item);
 
-            clone[listIndex] = list;
-            return clone;
+            return; 
 
         }
 
-        case "moved":
+        case "item_removed":
         {
-             const { fromListId, itemId, toListId } = action; 
+            const list = draft[action.listIndex];
+            list.items.splice(action.itemIndex, 1);
 
-            const listIndex = state.findIndex((list) => list.id === fromListId);
-            
-            const toListIndex = state.findIndex((list) => list.id === toListId);
-            
-            if(listIndex === -1 || toListIndex === -1){
-                console.error("Can not find desired list");
-                return state;
-            }
-            
-            const clone =[...state];
-            
-            const list = {
-                ...clone[listIndex],
-                items: [...clone[listIndex].items],
-            }
-            
-            const toList = {
-                ...clone[toListIndex],
-                items: [...clone[toListIndex].items]
-            }
-            
-            const itemIndex = list.items.findIndex(
-                (item) => item.id === itemId,
-            );
-            
-            if(itemIndex === -1){
-                console.error("Can not find desired item");
-                    return state;
-            }
-            
-            const [item] = list.items.splice(itemIndex, 1);
-                toList.items.push(item);
-        
-                clone[listIndex] = list;
-                clone[toListIndex] = toList;
-            
-                // save(clone);
-                return clone;
-            }
-
-        case "removed":
-        {
-            const {listId, itemId} = action;
-            
-            const listIndex = state.findIndex(
-                    (list) => list.id === listId,
-            );
-
-                if(listIndex === -1){
-                    console.error("Can not find desired list");
-                    return state;
-                }
-
-                const clone = [...state];
-                const list = {
-                    ...clone[listIndex],
-                    items: [...clone[listIndex].items]
-
-                } 
-
-                const itemIndex = list.items.findIndex(
-                    (item) => item.id === itemId,
-                );
-
-                if(itemIndex === -1){
-                    console.error("Can not find desired item.");
-                    return state;
-                }
-  
-                list.items.splice(itemIndex, 1);
-
-                clone[listIndex] = list;
-                // save(clone);
-                return clone;
+            return;
 
         }
         default: 

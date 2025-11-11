@@ -12,7 +12,7 @@ import List from "../List/List";
 import Button from "../Button/Button";
 // import { CounterContext } from "../../context/counter-context";
 import { BoardContext } from "../../context/board-context";
-import { ActiveItemContext } from "../../context/active-item-context";
+// import { ActiveItemContext } from "../../context/active-item-context";
 import { toast } from "react-toastify";
 
 
@@ -126,9 +126,9 @@ export default function Board(): ReactNode{
             </div>
 
                 <ul className={styles.lists}>
-                    {lists.map((list) => (
+                    {lists.map((list, listIndex) => (
                         <li key={list.id}>
-                            <List list={list} />
+                            <List listIndex={listIndex} list={list} />
                         </li>
                     ))}
                 </ul>
