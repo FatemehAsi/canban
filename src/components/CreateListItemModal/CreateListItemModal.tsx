@@ -67,7 +67,7 @@ export default function CreateListItemModal({
 
             const id = globalThis.crypto.randomUUID();      
             // create(listId, {id, title});
-            dispatchLists({type: "item-created", listIndex, item: {id, title}});
+            dispatchLists({type: "item_created", listIndex, item: {id, title}});
             toast.success("Item created successfully!");
             ref.current?.close();
             // console.log(formRef.current?.value);

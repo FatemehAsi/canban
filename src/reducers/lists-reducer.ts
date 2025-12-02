@@ -19,6 +19,8 @@ export function listsReducer(
     draft: Draft<ListType[]>,
     action: ListsAction,
 ): void{
+    console.log("listsReducer action:", action);
+
     switch(action.type){
 
         case "item_created":

@@ -7,6 +7,7 @@ import styles from "./BoardPage.module.css";
 import Board from "../../components/Board/Board";
 // import CounterProvider from "../../providers/CounterProvider";
 import BoardProvider from "../../providers/BoardProvider";
+import DndProvider from "../../providers/DndProvider/DndProvider";
 // import ActiveItemProvider from "../../providers/ActiveItemProvider";
 // import Modal from "../../components/Modal/Modal";
 // import CreateListItemModal from "../../components/CreateListItemModal/CreateListItemModal";
@@ -19,7 +20,7 @@ export default function BoardPage(): ReactNode{
         
 
             <BoardProvider>
-
+                <DndProvider>
                    <div className={styles["board-page"]}>
                     {/* <TextInput lable="this is label" />
                     <TextInput lable="this is lable 2" /> */}
@@ -27,7 +28,7 @@ export default function BoardPage(): ReactNode{
                     {/* <Button color="primary" onClick={handleOpenButtonClick}>Open</Button> */}
                     <Board />
                    </div>
-
+                </DndProvider>
             </BoardProvider> 
             
     );

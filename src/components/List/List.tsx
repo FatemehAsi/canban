@@ -10,6 +10,8 @@ import MingcuteMore1Line from "../../icons/MingcuteMore1Line";
 import ListItem from "../ListItem/ListItem";
 import CreateListItemModal from "../CreateListItemModal/CreateListItemModal";
 import { MingcuteAddLine } from "../../icons/MingcuteAddLine";
+import { useDroppable } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
 
 type Props = {
     listIndex: number;
@@ -18,6 +20,13 @@ type Props = {
 }
 
 export default function List({listIndex, list} : Props): ReactNode{
+
+    const {setNodeRef} = useDroppable({
+        id: list.id,
+        data: {isList: true, listIndex, list}
+
+    });
+
     const ModalRef = useRef<HTMLDialogElement>(null);
 
     const handleClickButtonClick = (): void => {
@@ -42,15 +51,18 @@ export default function List({listIndex, list} : Props): ReactNode{
                     
             </div>
 
-            <ul className={styles.items}>
+            <SortableContext id={list.id} items={list.items.map((item) => item)}>
+            <ul ref={setNodeRef} className={styles.items}>
                 {
-                    list.items.map((item, listIndex) => (
+                    list.items.map((item, itemIndex) => (
                     <li key={item.id}>
-                        <ListItem listIndex={listIndex} itemIndex={itemIndex} />
+                        <ListItem listIndex={listIndex} itemIndex={itemIndex} item={item}/>
                     </li>
                 ))
                 }
             </ul>
+            </SortableContext>
+
             <CreateListItemModal ref={ModalRef} listIndex={listIndex} />
     </div>);
 }

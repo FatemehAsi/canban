@@ -5,10 +5,12 @@ import type { ListItemType } from "../../types/list-item";
 import IconButton from "../IconButton/IconButton";
 import MingcuteDelete2Line from "../../icons/MingcuteDelete2Line";
 import { BoardContext } from "../../context/board-context";
+import { CSS } from "@dnd-kit/utilities";
 // import { ActiveItemContext } from "../../context/active-item-context";
 // import clsx from "clsx";
 // import { CounterContext } from "../../context/counter-context";
 import {toast} from "react-toastify";
+import { useSortable } from "@dnd-kit/sortable";
 
 type Props = {
     listIndex: number;
@@ -18,7 +20,7 @@ type Props = {
 }
 
 
- export default function ListItem({listIndex, ItemIndex, item}: Props): ReactNode{
+ export default function ListItem({listIndex, itemIndex, item}: Props): ReactNode{
     // const {decrement} = use(CounterContext)
     // const {remove} = use(BoardContext);
     const {dispatchLists} = use(BoardContext);
@@ -32,25 +34,37 @@ type Props = {
     //     }
     // };
 
+    const {attributes, listeners, setNodeRef, transform, transition} = useSortable({
+        id: item.id,
+        data: {isList: false, listIndex, itemIndex, item},
+    })
+
     const handleRemoveButtonClick = (e: MouseEvent<HTMLButtonElement>): void => {
         e.stopPropagation();
 
         // decrement();
 
         // remove(listId, item.id);
-        dispatchLists({type: "item-removed", listIndex, ItemIndex});
+        dispatchLists({type: "item_removed", listIndex, itemIndex});
         // deactivate();
-
         toast.success("Item removed successfully!");
     };
     
     return(
-        <div className={styles["list-item"]} >
-
+        <div
+        ref={setNodeRef} 
+        className={styles["list-item"]}
+        style={{
+            transform: CSS.Translate.toString(transform),
+            transition,
+        }} 
+        {...listeners}
+        {...attributes}
+        >
             {item.title}
 
-            <IconButton onClick={handleRemoveButtonClick}>
-                <MingcuteDelete2Line />
+            <IconButton onPointerDown={handleRemoveButtonClick}>
+                <MingcuteDelete2Line /> 
             </IconButton>
 
         </div>
