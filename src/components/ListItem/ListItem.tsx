@@ -2,7 +2,6 @@ import { ReactNode, MouseEvent, use} from "react";
 
 import styles from "./ListItem.module.css";
 import type { ListItemType } from "../../types/list-item";
-import IconButton from "../IconButton/IconButton";
 import MingcuteDelete2Line from "../../icons/MingcuteDelete2Line";
 import { BoardContext } from "../../context/board-context";
 import { CSS } from "@dnd-kit/utilities";
@@ -11,6 +10,9 @@ import { CSS } from "@dnd-kit/utilities";
 // import { CounterContext } from "../../context/counter-context";
 import {toast} from "react-toastify";
 import { useSortable } from "@dnd-kit/sortable";
+
+import IconButton from "../IconButton/IconButton"
+
 
 type Props = {
     listIndex: number;

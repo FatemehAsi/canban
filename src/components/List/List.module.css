@@ -12,21 +12,6 @@
     border-radius: var(--border-radius-2);
 
     inline-size: 20rem;
- 
-    .header{
-
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-
-        padding: 1rem 1rem 0.5rem;
-
-        .title{ 
-
-        }
-
-    }
 
     .items{
 
