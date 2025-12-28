@@ -12,9 +12,11 @@ import {toast} from "react-toastify";
 import { useSortable } from "@dnd-kit/sortable";
 
 import IconButton from "../IconButton/IconButton"
+import clsx from "clsx";
 
 
 type Props = {
+    presentational?: boolean;
     listIndex: number;
     itemIndex: number;
     item: ListItemType;
@@ -22,7 +24,7 @@ type Props = {
 }
 
 
- export default function ListItem({listIndex, itemIndex, item}: Props): ReactNode{
+ export default function ListItem({presentational = false, listIndex, itemIndex, item}: Props): ReactNode{
     // const {decrement} = use(CounterContext)
     // const {remove} = use(BoardContext);
     const {dispatchLists} = use(BoardContext);
@@ -36,7 +38,7 @@ type Props = {
     //     }
     // };
 
-    const {attributes, listeners, setNodeRef, transform, transition} = useSortable({
+    const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({
         id: item.id,
         data: {isList: false, listIndex, itemIndex, item},
     })
@@ -55,11 +57,12 @@ type Props = {
     return(
         <div
         ref={setNodeRef} 
-        className={styles["list-item"]}
+        className={clsx(styles["list-item"], presentational && styles.presentational)}
         style={{
+            opacity: isDragging ? '0.5' : undefined,
             transform: CSS.Translate.toString(transform),
             transition,
-        }} 
+        }}
         {...listeners}
         {...attributes}
         >

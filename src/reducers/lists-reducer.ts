@@ -1,6 +1,7 @@
 import type { ListType } from "../types/list";
 import type { ListItemType } from "../types/list-item";
 import type {Draft} from "immer";
+import {arrayMove} from "@dnd-kit/sortable";
 
 export type ListsAction =
 | {
@@ -13,6 +14,13 @@ export type ListsAction =
     type: "item_removed";
     listIndex: number;
     itemIndex: number;
+}
+
+| {
+    type: "item_dragged_end";
+    activeListIndex: number;
+    activeItemIndex: number;
+    overItemIndex: number;
 }
 
 export function listsReducer(
@@ -47,6 +55,25 @@ export function listsReducer(
             return;
 
         }
+
+        case "item_dragged_end":
+        {
+            const { activeListIndex, activeItemIndex, overItemIndex} = action;
+
+            if(activeListIndex === overItemIndex){
+                return;
+            }
+
+            const activeList = draft[activeListIndex];
+            activeList.items = arrayMove(
+                activeList.items,
+                activeItemIndex,
+                overItemIndex,
+            );
+
+            return;
+        }
+
         default: 
         {
             throw new Error("Unknown action.")
