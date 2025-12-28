@@ -17,6 +17,14 @@ export type ListsAction =
 }
 
 | {
+    type: "item_dragged_over";
+    activeListIndex: number;
+    activeItemIndex: number;
+    overListIndex: number;
+    overItemIndex?: number;
+}
+
+| {
     type: "item_dragged_end";
     activeListIndex: number;
     activeItemIndex: number;
@@ -56,11 +64,31 @@ export function listsReducer(
 
         }
 
+        case "item_dragged_over":
+        {
+            const {activeListIndex, activeItemIndex, overItemIndex, overListIndex} = action;
+
+            if(activeListIndex === overListIndex){
+                return;
+            }
+
+            const activeList = draft[activeListIndex];
+            const activeItem =  activeList.items[activeItemIndex];
+            const overList =  draft[overListIndex];
+
+            const newIndex = overItemIndex ?? overList.items.length; /* حواست باشه ها اگه اندیفایند بود بیا به انتهای ارایه که overList.items.length انتهای ارایه است*/
+
+            overList.items.splice(newIndex, 0, activeItem);
+            activeList.items.splice(activeItemIndex, 1);
+
+            return;
+        }
+
         case "item_dragged_end":
         {
             const { activeListIndex, activeItemIndex, overItemIndex} = action;
 
-            if(activeListIndex === overItemIndex){
+            if(activeItemIndex === overItemIndex){
                 return;
             }
 
