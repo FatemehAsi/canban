@@ -38,10 +38,12 @@ type Props = {
     //     }
     // };
 
-    const {attributes, listeners, setNodeRef, transform, transition, isDragging} = useSortable({
+    const {attributes, listeners, setNodeRef, transform, transition, isDragging, over} = useSortable({
         id: item.id,
         data: {isList: false, listIndex, itemIndex, item},
-    })
+    });
+
+    const overListIndex = over?.data.current?.listIndex;
 
     const handleRemoveButtonClick = (e: MouseEvent<HTMLButtonElement>): void => {
         e.stopPropagation();
@@ -61,7 +63,7 @@ type Props = {
         style={{
             opacity: isDragging ? '0.5' : undefined,
             transform: CSS.Translate.toString(transform),
-            transition,
+            transition: listIndex === overListIndex ? transition : undefined,
         }}
         {...listeners}
         {...attributes}
