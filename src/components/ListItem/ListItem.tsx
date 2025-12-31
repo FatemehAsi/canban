@@ -16,7 +16,7 @@ import clsx from "clsx";
 
 
 type Props = {
-    presentational?: boolean;
+    // presentational?: boolean;
     listIndex: number;
     itemIndex: number;
     item: ListItemType;
@@ -24,7 +24,7 @@ type Props = {
 }
 
 
- export default function ListItem({presentational = false, listIndex, itemIndex, item}: Props): ReactNode{
+ export default function ListItem({ listIndex, itemIndex, item}: Props): ReactNode{
     // const {decrement} = use(CounterContext)
     // const {remove} = use(BoardContext);
     const {dispatchLists} = use(BoardContext);
@@ -57,7 +57,7 @@ type Props = {
     return(
         <div
         ref={setNodeRef} 
-        className={clsx(styles["list-item"], presentational && styles.presentational)}
+        className={clsx(styles["list-item"])}
         style={{
             opacity: isDragging ? '0.5' : undefined,
             transform: CSS.Translate.toString(transform),

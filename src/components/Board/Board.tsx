@@ -14,6 +14,7 @@ import Button from "../Button/Button";
 import { BoardContext } from "../../context/board-context";
 // import { ActiveItemContext } from "../../context/active-item-context";
 import { toast } from "react-toastify";
+import {SortableContext} from "@dnd-kit/sortable";
 
 
 export default function Board(): ReactNode{
@@ -125,6 +126,7 @@ export default function Board(): ReactNode{
 
             </div>
 
+            <SortableContext id="board" items={lists.map((list) => list.id)}>
                 <ul className={styles.lists}>
                     {lists.map((list, listIndex) => (
                         <li key={list.id}>
@@ -132,6 +134,7 @@ export default function Board(): ReactNode{
                         </li>
                     ))}
                 </ul>
+            </SortableContext>
 
             </div>
     )

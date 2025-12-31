@@ -30,6 +30,11 @@ export type ListsAction =
     activeItemIndex: number;
     overItemIndex: number;
 }
+| {
+    type: "list_dragged_end";
+    activeListIndex: number;
+    overListIndex: number;
+}
 
 export function listsReducer(
     draft: Draft<ListType[]>,
@@ -102,11 +107,25 @@ export function listsReducer(
             return;
         }
 
-        default: 
+        case "list_dragged_end":
         {
+            const { activeListIndex, overListIndex} = action;
+
+            if(activeListIndex === overListIndex){
+                return;
+            }
+
+            const activeList = draft[activeListIndex];
+
+            draft.splice(activeListIndex, 1); //اول پاک میکنیم
+            draft.splice(overListIndex, 0, activeList) // بعد اضافه می کنیم
+
+            return;
+        }
+
+        default: {
             throw new Error("Unknown action.")
 
         }
     }
-
 }

@@ -9,11 +9,12 @@ import { SortableContext } from "@dnd-kit/sortable";
 import ListItem from "../../../ListItem/ListItem.tsx"
 
 type Props = {
-    listIndex: number;
+    presentational?: boolean;
+    listIndex: number
     list: ListType;
 }
 
-export default function ListItems({listIndex, list}: Props): ReactNode{
+export default function ListItems({listIndex, list, presentational}: Props): ReactNode{
 
     const {setNodeRef} = useDroppable({
         id: list.id,
@@ -26,7 +27,7 @@ export default function ListItems({listIndex, list}: Props): ReactNode{
                     {
                         list.items.map((item, itemIndex) => (
                             <li key={item.id}>
-                                <ListItem listIndex={listIndex} itemIndex={itemIndex} item={item}/>
+                                <ListItem presentational={presentational} listIndex={listIndex} itemIndex={itemIndex} item={item}/>
                             </li>
                         ))
                     }
