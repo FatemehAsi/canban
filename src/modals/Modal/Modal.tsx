@@ -1,7 +1,7 @@
 import { ReactNode, useRef, type ComponentProps, type RefObject, type MouseEvent } from "react";
 import styles from "./Modal.module.css";
-import IconButton from "../IconButton/IconButton";
-import MingcuteCloseLine from "../../icons/MingcuteCloseLine";
+import IconButton from "../../components/IconButton/IconButton.tsx";
+import MingcuteCloseLine from "../../icons/MingcuteCloseLine.tsx";
 import clsx from "clsx";
 // import Button from "../Button/Button";
 

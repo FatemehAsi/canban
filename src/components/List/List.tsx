@@ -4,7 +4,7 @@ import styles from "./List.module.css";
 import type { ListType } from "../../types/list";
 import { CSS } from "@dnd-kit/utilities";
 
-// import CreateListItemModal from "../CreateListItemModal/CreateListItemModal";
+// import ListItemModal from "../ListItemModal/ListItemModal";
 
 // import { useDroppable } from "@dnd-kit/core";
 

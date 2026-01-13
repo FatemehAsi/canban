@@ -1,7 +1,7 @@
 import {ReactNode} from "react";
 
 import styles from "../ListItems/ListItems.module.css"
-// import CreateListItemModal from "../../../CreateListItemModal/CreateListItemModal.tsx";
+// import ListItemModal from "../../../ListItemModal/ListItemModal.tsx";
 import type {ListType} from "../../../../types/list.ts";
 import {useDroppable} from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";

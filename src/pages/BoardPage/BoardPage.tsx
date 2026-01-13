@@ -10,7 +10,7 @@ import BoardProvider from "../../providers/BoardProvider";
 import DndProvider from "../../providers/DndProvider/DndProvider";
 // import ActiveItemProvider from "../../providers/ActiveItemProvider";
 // import Modal from "../../components/Modal/Modal";
-// import CreateListItemModal from "../../components/CreateListItemModal/CreateListItemModal";
+// import ListItemModal from "../../components/ListItemModal/ListItemModal";
 // import Button from "../../components/Button/Button";
 // import TextInput from "../../components/TextInput/TextInput";
 
