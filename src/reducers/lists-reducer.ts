@@ -5,6 +5,17 @@ import {arrayMove} from "@dnd-kit/sortable";
 
 export type ListsAction =
 | {
+    type: "list_created";
+    list: ListType;
+}
+
+| {
+    type: "list_dragged_end";
+    activeListIndex: number;
+    overListIndex: number;
+}
+
+| {
     type: "item_created";
     listIndex: number;
     item: ListItemType;
@@ -29,12 +40,7 @@ export type ListsAction =
     activeListIndex: number;
     activeItemIndex: number;
     overItemIndex: number;
-}
-| {
-    type: "list_dragged_end";
-    activeListIndex: number;
-    overListIndex: number;
-}
+};
 
 export function listsReducer(
     draft: Draft<ListType[]>,
@@ -43,6 +49,29 @@ export function listsReducer(
     console.log("listsReducer action:", action);
 
     switch(action.type){
+
+        case "list_created":
+        {
+            draft.push(action.list);
+
+            return;
+        }
+
+        case "list_dragged_end":
+        {
+            const { activeListIndex, overListIndex} = action;
+
+            if(activeListIndex === overListIndex){
+                return;
+            }
+
+            const activeList = draft[activeListIndex];
+
+            draft.splice(activeListIndex, 1); //اول پاک میکنیم
+            draft.splice(overListIndex, 0, activeList) // بعد اضافه می کنیم
+
+            return;
+        }
 
         case "item_created":
         {
@@ -56,7 +85,7 @@ export function listsReducer(
             const list = draft[action.listIndex];
             list.items.push(action.item);
 
-            return; 
+            return;
 
         }
 
@@ -106,23 +135,6 @@ export function listsReducer(
 
             return;
         }
-
-        case "list_dragged_end":
-        {
-            const { activeListIndex, overListIndex} = action;
-
-            if(activeListIndex === overListIndex){
-                return;
-            }
-
-            const activeList = draft[activeListIndex];
-
-            draft.splice(activeListIndex, 1); //اول پاک میکنیم
-            draft.splice(overListIndex, 0, activeList) // بعد اضافه می کنیم
-
-            return;
-        }
-
         default: {
             throw new Error("Unknown action.")
 
